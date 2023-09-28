@@ -1,11 +1,7 @@
-import "./App.css";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
-function App() {
-  return (
-    <>
-      <h1>Hello world</h1>
-    </>
-  );
-}
+const App = () => {
+  return <Button colorScheme="blue">Button</Button>;
+};
 
 export default App;
