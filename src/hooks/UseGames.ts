@@ -4,8 +4,6 @@ import { FetchResponse } from "../services/api-client";
 import apiClient from "../services/api-client";
 import { Platform } from "./UsePlatform";
 
-
-
 export interface Game {
   id: number;
   name: string;
@@ -28,7 +26,6 @@ const UseGames = (gameQuery: GameQuery) =>
           },
         })
         .then((res) => res.data),
-    
   });
 
 export default UseGames;
