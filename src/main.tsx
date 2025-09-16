@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import App from "./App.tsx";
 import theme from "./theme.ts";
 import "./index.css";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
