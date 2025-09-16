@@ -1,10 +1,9 @@
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { GameQuery } from "../App";
-import { FetchResponse } from "../services/api-client";
-import apiClient from "../services/api-client";
+import APIClient, { FetchResponse } from "../services/api-client";
 import { Platform } from "./UsePlatform";
 
-export interface Game {
+export interface  Game {
   id: number;
   name: string;
   background_image: string;
@@ -12,20 +11,28 @@ export interface Game {
   metacritic: number;
 }
 
-const UseGames = (gameQuery: GameQuery) =>
-  useQuery<FetchResponse<Game>, Error>({
+const apiClient = new APIClient<Game>("/games");
+
+const UseGames = (gameQuery: GameQuery) => 
+
+  useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: ["games", gameQuery],
-    queryFn: () =>
-      apiClient
-        .get<FetchResponse<Game>>("/games", {
-          params: {
-            genres: gameQuery.genre?.id,
-            parent_platform: gameQuery.platform?.id,
-            ordering: gameQuery.sortOrder,
-            search: gameQuery.searchText,
-          },
-        })
-        .then((res) => res.data),
+    queryFn: ({pageParam = 1}) => apiClient.getAll({
+      params: {
+        genres: gameQuery.genre?.id,
+        parent_platform: gameQuery.platform?.id,
+        ordering: gameQuery.sortOrder,
+        search: gameQuery.searchText,
+        page: pageParam,
+      },
+    }),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.next ? pages.length + 1 : undefined;
+    },
+    staleTime: 24 * 60 * 60 * 1000,
+
+    
   });
+
 
 export default UseGames;
