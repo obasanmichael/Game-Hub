@@ -21,15 +21,20 @@ const GameGrid = ({ gameQuery }: Props) => {
   } = UseGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+  const fetchtGamesCount =
+    data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
+
   if (error) return <Text>{error.message}</Text>;
+
   return (
-    <Box padding="10px" id="game-grid-scrollable" height="calc(100vh - 300px)" overflow="auto">
+    <Box
+      padding="10px"
+      id="game-grid-scrollable"
+      height="calc(100vh - 300px)"
+      overflow="auto"
+    >
       <InfiniteScroll
-        dataLength={
-          data
-            ? data.pages.reduce((total, page) => total + page.results.length, 0)
-            : 0
-        }
+        dataLength={fetchtGamesCount}
         next={() => fetchNextPage()}
         hasMore={!!hasNextPage}
         loader={
@@ -46,7 +51,7 @@ const GameGrid = ({ gameQuery }: Props) => {
           </SimpleGrid>
         }
         scrollableTarget="game-grid-scrollable"
-        style={{overflow: "visible"}}
+        style={{ overflow: "visible" }}
       >
         <SimpleGrid
           columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
