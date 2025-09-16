@@ -1,8 +1,8 @@
 import { useInfiniteQuery } from "react-query";
-import { GameQuery } from "../App";
 import APIClient, { FetchResponse } from "../services/api-client";
 import { Platform } from "./usePlatforms";
 import ms from "ms";
+import useGameStore from "../store";
 
 export interface Game {
   id: number;
@@ -14,8 +14,9 @@ export interface Game {
 
 const apiClient = new APIClient<Game>("/games");
 
-const UseGames = (gameQuery: GameQuery) =>
-  useInfiniteQuery<FetchResponse<Game>, Error>({
+const useGames = () => {
+  const gameQuery = useGameStore((s) => s.gameQuery);
+  return useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: ["games", gameQuery],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
@@ -30,7 +31,8 @@ const UseGames = (gameQuery: GameQuery) =>
     getNextPageParam: (lastPage, pages) => {
       return lastPage.next ? pages.length + 1 : undefined;
     },
-    staleTime: ms('24h'),
+    staleTime: ms("24h"),
   });
+};
 
-export default UseGames;
+export default useGames;
