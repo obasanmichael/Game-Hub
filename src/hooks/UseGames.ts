@@ -7,13 +7,14 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 export interface Game {
   id: number;
   name: string;
+  slug: string;
+  description_raw: string;
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
 }
 
 const apiClient = new APIClient<Game>("/games");
-
 
 const useGames = () => {
   const gameQuery = useGameStore((s) => s.gameQuery);
@@ -32,9 +33,8 @@ const useGames = () => {
       return lastPage.next ? allPages.length + 1 : undefined;
     },
     staleTime: ms("24h"),
-    initialPageParam: 1
+    initialPageParam: 1,
   });
 };
 
 export default useGames;
-
