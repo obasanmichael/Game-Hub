@@ -15,7 +15,7 @@ const usePlatforms = () =>
   useQuery({
     queryKey: ["platforms"],
     queryFn: apiClient.getAll,
-    staleTime: ms('24h'),
+    staleTime: ms("24h"),
     initialData: platform,
   });
 
