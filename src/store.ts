@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export interface GameQuery {
+ interface GameQuery {
   searchText?: any;
   genreId?: number;
   platformId?: number;
@@ -17,7 +17,7 @@ interface gameStore {
 
 const useGameStore = create<gameStore>((set) => ({
     gameQuery: {} as GameQuery,
-    setSearchText: (text) => set(() => ({ gameQuery: { searchText: text } })),
+    setSearchText: (searchText) => set(() => ({ gameQuery: { searchText } })),
     setGenreId: (genreId) => set(store => ({gameQuery: {...store.gameQuery, genreId}})),
     setPlatformId: (platformId) => set(store => ({ gameQuery: { ...store.gameQuery, platformId } })),
     setSortOrder: (sortOrder) => set(store => ({gameQuery: {...store.gameQuery, sortOrder}}))

@@ -9,7 +9,8 @@ import usePlatforms from "../hooks/usePlatforms";
 
 const PlatformSelector = () => {
   const { data, error } = usePlatforms();
-  const platform = usePlatform()
+  const selectedPlatformId = useGameStore(s => s.gameQuery.platformId);
+  const platform = usePlatform(selectedPlatformId);
   const setPlatformId = useGameStore(s => s.setPlatformId);
   if (error) return null;
   return (
