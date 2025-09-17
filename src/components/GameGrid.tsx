@@ -7,7 +7,6 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const GameGrid = () => {
-  // const gameQuery = useGameStore((s) => s.gameQuery);
   const {
     data,
     fetchNextPage,

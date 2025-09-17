@@ -7,9 +7,10 @@ import useGameStore from "../store";
 
 const GameHeading = () => {
   
-    const { gameQuery } = useGameStore();
-    const genre = useGenre(gameQuery.genreId)
-    const platform = usePlatform(gameQuery.platformId);
+  const platformId = useGameStore(s => s.gameQuery.platformId);
+  const genreId = useGameStore(s => s.gameQuery.genreId);
+    const genre = useGenre(genreId)
+    const platform = usePlatform(platformId);
   const heading = `${platform?.name || ""} ${genre?.name || ""} Games`;
   return (
     <Heading marginY={5} fontSize="5xl" as="h1">

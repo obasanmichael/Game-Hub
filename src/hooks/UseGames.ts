@@ -1,8 +1,8 @@
+import ms from "ms";
 import { useInfiniteQuery } from "react-query";
 import APIClient, { FetchResponse } from "../services/api-client";
-import { Platform } from "./usePlatforms";
-import ms from "ms";
 import useGameStore from "../store";
+import { Platform } from "./usePlatforms";
 
 export interface Game {
   id: number;
