@@ -20,12 +20,21 @@ class APIClient<T> {
   }
 
   getAll = (config: AxiosRequestConfig) => {
-    return axiosInstance.get<FetchResponse<T>>(this.endpoint, config).then(res => res.data)
-  }
+    return axiosInstance
+      .get<FetchResponse<T>>(this.endpoint, config)
+      .then((res) => res.data);
+  };
+  getAllByPath = (path: string, config?: AxiosRequestConfig) => {
+    return axiosInstance
+      .get<FetchResponse<T>>(`${this.endpoint}/${path}`, config)
+      .then((res) => res.data);
+  };
 
   get = (id: number | string) => {
-    return axiosInstance.get<T>(this.endpoint + '/' + id).then(res => res.data)
-  }
+    return axiosInstance
+      .get<T>(this.endpoint + "/" + id)
+      .then((res) => res.data);
+  };
   // post = (data: T) => {
   //   return axiosInstance.post<T[]>(this.endpoint, data).then(res => res.data)
   // }
