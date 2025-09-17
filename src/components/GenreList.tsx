@@ -8,8 +8,8 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import getCroppedImageUrl from "./Image-url";
-import useGenres from "../hooks/useGenres";
 import useGameStore from "../store";
+import useGenres from "../hooks/UseGenres";
 
 
 
